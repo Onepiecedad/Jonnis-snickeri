@@ -23,7 +23,9 @@ import {
   Linkedin,
   ArrowRight,
   Quote,
-  Play
+  Play,
+  Volume2,
+  Headphones
 } from 'lucide-react';
 import './App.css';
 
@@ -159,6 +161,23 @@ function App() {
     return () => clearInterval(timer);
   }, []);
 
+  // Function to handle CTA button clicks
+  const handleCTAClick = (ctaType) => {
+    if (ctaType === 'assistant') {
+      // Scroll to Johnny's Assistant section
+      document.getElementById('johnnys-assistant')?.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    } else if (ctaType === 'quote') {
+      // Scroll to contact form
+      document.getElementById('kontakt')?.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-wood-50 to-sage-50">
       {/* Navigation */}
@@ -189,6 +208,7 @@ function App() {
           </div>
 
           <motion.button
+            onClick={() => handleCTAClick('quote')}
             className="bg-forest-600 text-white px-6 py-2 rounded-full hover:bg-forest-700 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -245,6 +265,7 @@ function App() {
             transition={{ duration: 0.8, delay: 0.8 }}
           >
             <motion.button 
+              onClick={() => handleCTAClick('quote')}
               className="bg-forest-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-forest-700 transition-all duration-300 shadow-lg hover:shadow-xl"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
@@ -253,6 +274,7 @@ function App() {
             </motion.button>
             
             <motion.button 
+              onClick={() => handleCTAClick('assistant')}
               className="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-full text-lg font-semibold border border-white/30 hover:bg-white/30 transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
@@ -598,8 +620,8 @@ function App() {
         </div>
       </section>
 
-      {/* Johnny's Assistant Section */}
-      <section className="py-20 bg-gradient-to-br from-wood-900 to-forest-900 text-white">
+      {/* Johnny's Assistant Section - Now with Real ElevenLabs Widget */}
+      <section id="johnnys-assistant" className="py-20 bg-gradient-to-br from-wood-900 to-forest-900 text-white">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -612,23 +634,23 @@ function App() {
                 Träffa Johnny's <span className="text-wood-300">AI Assistant</span>
               </h2>
               <p className="text-xl text-wood-100 mb-8">
-                Vår intelligenta assistent är här för att hjälpa dig 24/7. 
+                Vår intelligenta röstassistent är här för att hjälpa dig 24/7. 
                 Ställ frågor om våra tjänster, be om råd eller boka en konsultation - 
-                allt genom röst eller chat.
+                allt genom naturlig svenska konversation.
               </p>
               
               <div className="space-y-4 mb-8">
                 <div className="flex items-center">
                   <CheckCircle className="text-forest-400 mr-3" size={20} />
-                  <span>Röststyrd och chattbaserad AI</span>
+                  <span>Naturlig svenska konversation</span>
                 </div>
                 <div className="flex items-center">
                   <CheckCircle className="text-forest-400 mr-3" size={20} />
-                  <span>Svar på frågor om tjänster och priser</span>
+                  <span>Expertkunskap om snickeri och träarbeten</span>
                 </div>
                 <div className="flex items-center">
                   <CheckCircle className="text-forest-400 mr-3" size={20} />
-                  <span>Hjälp med projekt planering</span>
+                  <span>Hjälp med projekt planering och råd</span>
                 </div>
                 <div className="flex items-center">
                   <CheckCircle className="text-forest-400 mr-3" size={20} />
@@ -636,24 +658,18 @@ function App() {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <motion.button 
-                  className="bg-forest-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-forest-700 transition-all duration-300 shadow-lg hover:shadow-xl"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Mic className="inline mr-2" size={20} />
-                  Starta Röstchat
-                </motion.button>
-                
-                <motion.button 
-                  className="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-full text-lg font-semibold border border-white/30 hover:bg-white/30 transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <MessageCircle className="inline mr-2" size={20} />
-                  Öppna Chat
-                </motion.button>
+              <div className="bg-forest-800/50 backdrop-blur-sm rounded-2xl p-6 border border-forest-600/30">
+                <div className="flex items-center mb-4">
+                  <Volume2 className="text-forest-400 mr-3" size={24} />
+                  <span className="text-lg font-semibold">Prova Röstassistenten</span>
+                </div>
+                <p className="text-forest-100 mb-4">
+                  Klicka på assistenten till höger för att starta en naturlig röstkonversation på svenska.
+                </p>
+                <div className="flex items-center text-forest-300 text-sm">
+                  <Headphones className="mr-2" size={16} />
+                  Rekommenderat: Använd hörlurar för bästa ljudkvalitet
+                </div>
               </div>
             </motion.div>
 
@@ -662,43 +678,54 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative"
+              className="relative flex justify-center items-center"
             >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-2xl">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-forest-600 rounded-full flex items-center justify-center mr-4">
-                    <Bot className="text-white" size={24} />
+              <div className="relative">
+                {/* ElevenLabs ConvAI Widget */}
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/20">
+                  <div className="text-center mb-6">
+                    <Bot className="mx-auto text-forest-400 mb-4" size={48} />
+                    <h3 className="text-2xl font-semibold mb-2">Johnny's Assistant</h3>
+                    <p className="text-forest-200">Klicka för att starta röstsamtal</p>
                   </div>
-                  <div>
-                    <div className="font-semibold text-lg">Johnny's Assistant</div>
-                    <div className="text-wood-300 text-sm">Online nu</div>
+                  
+                  {/* ElevenLabs Widget Embed */}
+                  <div className="flex justify-center">
+                    <elevenlabs-convai agent-id="agent_01jxhg639qe9jb2kawq0qf9a21"></elevenlabs-convai>
+                  </div>
+                  
+                  <div className="mt-6 text-center">
+                    <div className="flex items-center justify-center space-x-4 text-sm text-forest-200">
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+                        Online nu
+                      </div>
+                      <div className="flex items-center">
+                        <Mic className="mr-1" size={14} />
+                        Röststyrd
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
-                <div className="space-y-4">
-                  <div className="bg-white/10 rounded-lg p-4">
-                    <p className="text-wood-100">
-                      Hej! Jag är Johnny's AI-assistent. Hur kan jag hjälpa dig idag? 
-                      Du kan fråga mig om våra tjänster, be om en offert eller boka en konsultation.
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
-                    <input 
-                      type="text" 
-                      placeholder="Skriv ditt meddelande här..."
-                      className="bg-transparent flex-1 text-white placeholder-wood-300 outline-none"
-                    />
-                    <Send className="text-forest-400 cursor-pointer hover:text-forest-300" size={20} />
-                  </div>
-                </div>
+                {/* Floating animation elements */}
+                <motion.div 
+                  className="absolute -top-4 -right-4 w-8 h-8 bg-forest-400 rounded-full opacity-70"
+                  animate={{ 
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 180, 360]
+                  }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                />
+                <motion.div 
+                  className="absolute -bottom-4 -left-4 w-6 h-6 bg-wood-400 rounded-full opacity-60"
+                  animate={{ 
+                    scale: [1, 1.3, 1],
+                    y: [0, -10, 0]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+                />
               </div>
-              
-              <motion.div 
-                className="absolute -top-4 -right-4 w-8 h-8 bg-forest-400 rounded-full"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
             </motion.div>
           </div>
         </div>
